@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'highonbuzz.wsgi.application'
 DATABASES = {  
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'highonbuzz',  
+        'NAME': 'default',  
         'USER': 'jishnupr',  #root for local and jishnupr for server
         'PASSWORD': 'highonbuzz',  #password #highonbuzz
         'HOST': 'jishnupr.mysql.pythonanywhere-services.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
