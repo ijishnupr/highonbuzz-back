@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    # external
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
@@ -70,21 +76,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'highonbuzz.wsgi.application'
 
+API_KEY='1b016bc3-906f-11ee-8cbb-0200cd936042'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'jishnupr$database',  
-        'USER': 'jishnupr',  #root for local and jishnupr for server
-        'PASSWORD': 'highonbuzz',  #password #highonbuzz
-        'HOST': 'jishnupr.mysql.pythonanywhere-services.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
-        'PORT': '',  #3306
-          
-    }  
-}  
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'defaultdb',
+        'USER': 'avnadmin',  #root for local and jishnupr for server
+        'PASSWORD': 'AVNS_8TMB_8z0OZTgOgG1SY-',  #password #highonbuzz
+        'HOST': 'highonbuzz-freddydk296-e57f.a.aivencloud.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
+        'PORT': '14017',  #3306
+
+    }
+}
 
 
 # Password validation
@@ -116,6 +124,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL= 'accounts.User'
 
 
 # Static files (CSS, JavaScript, Images)
