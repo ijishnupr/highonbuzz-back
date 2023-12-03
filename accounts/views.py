@@ -101,17 +101,54 @@ def influencer_login(request):
     return Response({'detail': 'Invalid request method.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def brand_registration(request):
+#     if request.method == 'POST':
+#         serializer = RegisterBrandSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'detail': 'Successfully registered brand'}, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     return Response({'detail': 'Invalid request method.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def brand_registration(request):
     if request.method == 'POST':
         serializer = RegisterBrandSerializer(data=request.data)
         if serializer.is_valid():
+            email = serializer.validated_data['email']
+            mobile = serializer.validated_data['mobile']
+            password = serializer.validated_data['password']
+            provided_otp = serializer.validated_data['otp']
+
+            # Check if the email is unique
+            if User.objects.filter(email=email).exists():
+                return Response({'detail': 'This email is already registered.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Check if the mobile is unique
+            if User.objects.filter(mobile=mobile).exists():
+                return Response({'detail': 'This mobile number is already registered.'},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            # Check if the provided OTP matches the latest OTP in MobileOTP
+            latest_otp = MobileOTP.objects.filter(mobile=mobile).order_by('-time').first()
+
+            if latest_otp is None or provided_otp != latest_otp.otp:
+                return Response({'detail': 'Invalid OTP.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Create and save the new brand user
             serializer.save()
+
             return Response({'detail': 'Successfully registered brand'}, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     return Response({'detail': 'Invalid request method.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 
 @api_view(['POST'])

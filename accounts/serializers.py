@@ -24,16 +24,34 @@ class RegisterClientSerializer(serializers.ModelSerializer):
         return user
 
 
+# class RegisterBrandSerializer(serializers.ModelSerializer):
+#     password = serializers.CharField(write_only=True)
+
+#     class Meta:
+#         model = User
+#         fields = ['email', 'password']
+
+#     def create(self, validated_data):
+#         user = User.objects.create(
+#             email=validated_data['email'],
+#             role='brand',  # Set the role to 'brand'
+#         )
+#         user.set_password(validated_data['password'])
+#         user.save()
+#         return user
+
 class RegisterBrandSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    otp = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['email', 'password', 'otp', 'mobile']  # Include 'mobile' in the fields
 
     def create(self, validated_data):
         user = User.objects.create(
             email=validated_data['email'],
+            mobile=validated_data['mobile'],
             role='brand',  # Set the role to 'brand'
         )
         user.set_password(validated_data['password'])
