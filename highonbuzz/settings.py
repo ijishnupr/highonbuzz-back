@@ -84,19 +84,29 @@ API_KEY='1b016bc3-906f-11ee-8cbb-0200cd936042'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+server=True
+if not server:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'defaultdb',
+            'USER': 'avnadmin',  #root for local and jishnupr for server
+            'PASSWORD': 'AVNS_8TMB_8z0OZTgOgG1SY-',  #password #highonbuzz
+            'HOST': 'highonbuzz-freddydk296-e57f.a.aivencloud.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
+            'PORT': '14017',  #3306
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'defaultdb',
-        'USER': 'avnadmin',  #root for local and jishnupr for server
-        'PASSWORD': 'AVNS_8TMB_8z0OZTgOgG1SY-',  #password #highonbuzz
-        'HOST': 'highonbuzz-freddydk296-e57f.a.aivencloud.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
-        'PORT': '14017',  #3306
-
+        }
     }
-}
 
+if server:
+    DATABASES['additional_table'] = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'additional_table_db',
+        'USER': 'additional_user',  # Change to the appropriate user
+        'PASSWORD': 'additional_password',  # Set the password
+        'HOST': 'additional_host',  # Set the host
+        'PORT': 'additional_port',  # Set the port
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
