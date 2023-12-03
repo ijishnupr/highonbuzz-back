@@ -75,4 +75,13 @@ class BrandLoginSerializer(serializers.Serializer):
 class BrandProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = BrandProfile
-        fields = ['first_name', 'last_name', 'brand_name', 'business_name_url']
+        fields = ['first_name', 'last_name', 'brand_name', 'business_name_url', 
+                  'profile_picture', 'brand_description', 'years_of_establishment',
+                  'number_of_products', 'about_services']
+
+
+
+class InfluencerProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InfluencerProfile
+        fields = ['first_name', 'last_name', 'age', 'location', 'instagram_profile', 'instagram_earnings', 'youtube_profile', 'youtube_earnings']
