@@ -99,14 +99,17 @@ if not server:
     }
 
 if server:
-    DATABASES['additional_table'] = {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'additional_table_db',
-        'USER': 'additional_user',  # Change to the appropriate user
-        'PASSWORD': 'additional_password',  # Set the password
-        'HOST': 'additional_host',  # Set the host
-        'PORT': 'additional_port',  # Set the port
-    }
+    DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'jishnupr$database',  
+        'USER': 'jishnupr',  #root for local and jishnupr for server
+        'PASSWORD': 'highonbuzz',  #password #highonbuzz
+        'HOST': 'jishnupr.mysql.pythonanywhere-services.com',  #127.0.0.1 for local # jishnupr.mysql.pythonanywhere-services.com
+        'PORT': 'mysql.server',  #3306
+          
+    }  
+}  
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
