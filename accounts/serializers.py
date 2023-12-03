@@ -1,7 +1,7 @@
 # serializers.py
 
 from rest_framework import serializers
-from .models import User
+from .models import *
 from .validators import phone_regex
 
 
@@ -56,6 +56,7 @@ class RegisterBrandSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+        
         return user
 
 
@@ -67,3 +68,11 @@ class InfluencerLoginSerializer(serializers.Serializer):
 class BrandLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(style={'input_type': 'password'})
+
+
+
+
+class BrandProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BrandProfile
+        fields = ['first_name', 'last_name', 'brand_name', 'business_name_url']

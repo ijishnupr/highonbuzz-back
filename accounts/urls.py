@@ -8,7 +8,8 @@ urlpatterns = [
     path('influencer-login/', influencer_login, name='influencer-login'),
     path('send-otp/', send_otp,),
     path('brand-register/', brand_registration, name='register'),
-    path('brand-login/', brand_login, name='brand-login')
+    path('brand-login/', brand_login, name='brand-login'),
+    path('update-brand-profile/', update_brand_profile, name='update_brand_profile'),
 
 
 

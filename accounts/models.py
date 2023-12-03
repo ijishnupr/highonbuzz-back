@@ -61,3 +61,15 @@ class MobileOTP(models.Model):
 
     def __str__(self):
         return f"{self.mobile} - {self.otp}"
+
+
+
+class BrandProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='brand_profile')
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    brand_name = models.CharField(max_length=255)
+    business_name_url = models.URLField()
+
+    def __str__(self):
+        return f"{self.brand_name}'s Profile"
