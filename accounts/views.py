@@ -285,3 +285,92 @@ def update_brand_profile(request):
         return Response(serializer.errors, status=400)
 
     return Response({'detail': 'Invalid request method.'}, status=405)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_brand_profile(request):
+    user = request.user
+    try:
+        brand_profile = BrandProfile.objects.get(user=user)
+    except BrandProfile.DoesNotExist:
+        return Response({'detail': 'Brand profile not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = BrandProfileSerializer(brand_profile)
+    
+    data = {
+        'user': {
+            'email': user.email,
+            'mobile': user.mobile,
+            # Add other user-related fields
+        },
+        'brand_profile': serializer.data
+    }
+
+    return Response(data, status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_influencer_profile(request):
+    user = request.user
+    try:
+        influencer_profile = InfluencerProfile.objects.get(user=user)
+    except InfluencerProfile.DoesNotExist:
+        return Response({'detail': 'Influencer profile not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = InfluencerProfileSerializer(influencer_profile)
+    
+    data = {
+        'user': {
+            'email': user.email,
+            'mobile': user.mobile,
+            # Add other user-related fields
+        },
+        'influencer_profile': serializer.data
+    }
+
+    return Response(data, status=status.HTTP_200_OK)
+
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_brand_profile_details(request):
+    user = request.user
+
+    try:
+        brand_profile = BrandProfile.objects.get(user=user)
+    except BrandProfile.DoesNotExist:
+        return Response({'detail': 'Brand profile not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = BrandProfileSerializer(brand_profile, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'detail': 'Brand profile details updated successfully'}, status=status.HTTP_200_OK)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_influencer_profile_details(request):
+    user = request.user
+
+    try:
+        influencer_profile = InfluencerProfile.objects.get(user=user)
+    except InfluencerProfile.DoesNotExist:
+        return Response({'detail': 'Influencer profile not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = InfluencerProfileSerializer(influencer_profile, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'detail': 'Influencer profile details updated successfully'}, status=status.HTTP_200_OK)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
