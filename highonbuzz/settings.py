@@ -84,7 +84,7 @@ API_KEY='1b016bc3-906f-11ee-8cbb-0200cd936042'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-server=True
+server=False
 if not server:
     DATABASES = {
         'default': {
