@@ -71,6 +71,7 @@ class BrandProfile(models.Model):
     brand_name = models.CharField(max_length=255)
     business_name_url = models.URLField()
     profile_picture = models.ImageField(upload_to='brand_profiles/', null=True, blank=True)
+    brand_images = models.ImageField(upload_to='brand_related', null=True, blank=True)
     brand_description = models.TextField(null=True, blank=True)
     years_of_establishment = models.PositiveIntegerField(null=True, blank=True)
     number_of_products = models.PositiveIntegerField(null=True, blank=True)
