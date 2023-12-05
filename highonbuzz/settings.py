@@ -67,7 +67,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'highonbuzz.urls'
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000","https://highonbuzz.netlify.app/"
 ]
 TEMPLATES = [
     {
